@@ -23,7 +23,7 @@ char REDIRECT[128];
 char DEFAULT_FILE[128] = "index.html";
 char CERT_FILE[128] = "cert.pem";
 char KEY_FILE[128] = "key.pem";
-bool ALLOW_LIST_CONNECT = false; // New config option
+bool ALLOW_LIST_CONTENT = false; // New config option
 
 
 void load_config() {
@@ -69,9 +69,9 @@ void load_config() {
                         // Shouldn't happen – 'https' is a map, not a value
                     } else if (strcmp(key, "allow_list_content") == 0) {
                         if (strcmp(value, "true") == 0)
-                            ALLOW_LIST_CONNECT = true;
+                            ALLOW_LIST_CONTENT = true;
                         else
-                            ALLOW_LIST_CONNECT = false;
+                            ALLOW_LIST_CONTENT = false;
                     }
                 } else if (strcmp(parent, "https") == 0) {
                     ALLOW_SSH = 1;  // if https block is present, allow SSH
@@ -213,7 +213,7 @@ void send_file(SSL *ssl, const char *filepath) {
     }
 
     if (S_ISDIR(st.st_mode)) {
-        if (!ALLOW_LIST_CONNECT) {
+        if (!ALLOW_LIST_CONTENT) {
             const char *forbidden = "HTTP/1.1 403 Forbidden\r\nContent-Type: text/plain\r\n\r\nDirectory listing is disabled.\n";
             SSL_write(ssl, forbidden, strlen(forbidden));
             return;
@@ -428,7 +428,7 @@ void *start_http_server(void *arg) {
         }
 
         if (S_ISDIR(st.st_mode)) {
-            if (!ALLOW_LIST_CONNECT) {
+            if (!ALLOW_LIST_CONTENT) {
                 const char *forbidden = "HTTP/1.1 403 Forbidden\r\nContent-Type: text/plain\r\n\r\nDirectory listing is disabled.\n";
                 send(client_fd, forbidden, strlen(forbidden), 0);
                 close(client_fd);

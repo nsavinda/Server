@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2
+CFLAGS = -Wall -Wextra -O3
 LDFLAGS = -lssl -lcrypto -lpthread -lyaml
 SOURCES = server.c
 OBJECTS = $(SOURCES:.c=.o)

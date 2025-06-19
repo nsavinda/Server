@@ -1,10 +1,10 @@
-port: 8080
+port: 9080
 
-https:
-  force: false # Set to true to force HTTPS
-  port: 8443
-  cert: cert.pem
-  key: key.pem
+# https:
+#   force: false # Set to true to force HTTPS
+#   port: 9443
+#   cert: cert.pem
+#   key: key.pem
 
 index_file: index1.html
 allow_list_content: true

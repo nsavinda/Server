@@ -17,13 +17,13 @@
 
 int HTTP_PORT = 8080;
 int HTTPS_PORT = 8443;
+int ALLOW_SSH = 0;
 int ONLY_HTTPS = 0;
-int ALLOW_SSH = 1;
 char REDIRECT[128];
 char DEFAULT_FILE[128] = "index.html";
 char CERT_FILE[128] = "cert.pem";
 char KEY_FILE[128] = "key.pem";
-bool ALLOW_LIST_CONTENT = false; // New config option
+bool ALLOW_LIST_CONTENT = false;
 
 
 void load_config() {
@@ -147,7 +147,7 @@ void log_message(const char *message, const char *level) {
     } else if (strcmp(level, "info") == 0) {
         colorCode = "\033[1;34m";      // Blue
     } else {
-        colorCode = "\033[0m";         // Fallback default
+        colorCode = "\033[0m";         
         printf("Unknown log level: %s\n", level);
     }
 

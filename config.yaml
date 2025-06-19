@@ -1,19 +1,10 @@
-# https: yes        # options: no, yes, force
-# http_port: 8280
-# https_port: 8443
-# index_file: index1.html
-# cert: cert.pem
-# key: key.pem
-
-
-port: 8280
+port: 8080
 
 https:
-  force: false
+  force: false # Set to true to force HTTPS
   port: 8443
   cert: cert.pem
   key: key.pem
-
 
 index_file: index1.html
 allow_list_content: true
